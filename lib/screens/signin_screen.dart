@@ -1,6 +1,9 @@
-import 'package:anime_verse/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import '../config/routes.dart';
+import '../widgets/app_scaffold.dart';
+import 'home_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -11,30 +14,37 @@ class SignInScreen extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     return AppScaffold(
       body: LayoutBuilder(
-        builder: (context, constraints) {
-          final isLargeScreen = constraints.maxHeight > 600;
-          final maxWidth = isLargeScreen ? 400.0 : constraints.maxWidth;
-          return SingleChildScrollView(
-            child: Center(
-              child: Container(
-                width: maxWidth,
-                padding: EdgeInsets.all(screenWidth * 0.06),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // konten sign in
-                    SizedBox(height: screenHeight * 0.14),
-                    Text(
-                      'Welcome Back!',
-                      style: TextStyle(
-                        fontSize: screenWidth * (isLargeScreen ? 0.06 : 0.1),
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
-                    ),
+          builder: (context, constraints) {
+            final isLargeScreen = constraints.maxWidth > 600;
+            final maxWidth = isLargeScreen ? 400.0 : constraints.maxWidth;
+            return SingleChildScrollView(
+              child: Center(
+                child: Container(
+                  width: maxWidth,
+                  padding: EdgeInsets.all(screenWidth * 0.06),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // konten sign-in berada di sini
+                      SizedBox(height: screenHeight * 0.1),
 
-                    //
-                     SizedBox(height: screenHeight * 0.01),
+                      // TODO: Add logo here
+
+                      SizedBox(height: screenHeight * 0.04),
+
+                      // Signin Title
+                      Text(
+                        'Welcome Back!',
+                        style: TextStyle(
+                          fontSize: screenWidth * (isLargeScreen ? 0.06 : 0.1),
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+
+                      SizedBox(height: screenHeight * 0.01),
+
                       Text(
                         'Sign in to continue your anime journey',
                         style: TextStyle(
@@ -50,7 +60,7 @@ class SignInScreen extends StatelessWidget {
                       // Email TextField
                       TextField(
                         decoration: InputDecoration(
-                          labelText: "Email",
+                          labelText: 'Email',
                           labelStyle: TextStyle(
                             fontSize: screenWidth * 0.04,
                             color: Colors.white70,
@@ -77,7 +87,8 @@ class SignInScreen extends StatelessWidget {
                         ),
                         keyboardType: TextInputType.emailAddress,
                       ),
-                      SizedBox(height: screenHeight * 0.05),
+
+                      SizedBox(height: screenHeight * 0.02),
 
                       // Password TextField
                       TextField(
@@ -116,7 +127,6 @@ class SignInScreen extends StatelessWidget {
                       ),
 
                       SizedBox(height: screenHeight * 0.01),
-
                       // Forgot Password
                       Align(
                         alignment: Alignment.centerRight,
@@ -143,6 +153,8 @@ class SignInScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             // TODO: Implement sign in functionality
+                            context.go(AppRoutes.home);
+
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue.withValues(alpha: 0.8),
@@ -193,7 +205,6 @@ class SignInScreen extends StatelessWidget {
                       ),
 
                       SizedBox(height: screenHeight * 0.03),
-
                       // Sign in with Google
                       SizedBox(
                         width: double.infinity,
@@ -245,6 +256,7 @@ class SignInScreen extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               // TODO: Navigate to sign up screen
+                              context.go(AppRoutes.signUp);
                             },
                             child: Text(
                               'Sign Up',
@@ -261,12 +273,16 @@ class SignInScreen extends StatelessWidget {
                       SizedBox(height: screenHeight * 0.05),
 
 
+
+
                     ],
+                  ),
                 ),
+
               ),
-            ),
-          );
-        },
+            );
+
+          }
       ),
     );
   }
